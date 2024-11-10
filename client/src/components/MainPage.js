@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from './EventCard';
-import { recommendedMockData, trendingMockData } from '/Users/bt2805/Desktop/Event-Buddy-2/client/src/mockData.js';
+import { recommendedMockData, trendingMockData } from '../mockData.js';
 
 const MainPage = () => {
   const [recommendedEvents, setRecommendedEvents] = useState([]);
