@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Mail, Lock } from "lucide-react";  // Ensure lucide-react is installed
+import { ArrowRight, Mail, Lock } from "lucide-react"; // Ensure lucide-react is installed
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();  // Initialize the navigate function
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,8 +13,8 @@ const LoginPage = () => {
     
     // Here, you could add login validation or API authentication logic if needed
 
-    // If login is successful, navigate to the main page
-    navigate("/main");
+    // If login is successful, navigate to the onboarding process
+    navigate("/onboarding");
   };
 
   return (

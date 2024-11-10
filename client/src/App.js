@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
-import LoginPage from "./components/auth/login.js";  // Import the LoginPage component
-import MainPage from "./components/MainPage";        // Import the MainPage component
+import LoginPage from "./components/auth/login"; // Import the LoginPage component
+import MainPage from "./components/MainPage";     // Import the MainPage component
+import Onboarding from "./components/Onboarding"; // Import the Onboarding component
 
 function ConnectionTest() {
   const [apiMessage, setApiMessage] = useState(null);
@@ -38,9 +39,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ConnectionTest />} />
+        <Route path="/" element={<LoginPage />} />                {/* Set LoginPage as the default route */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/main" element={<MainPage />} />  {/* Route for the main page */}
+        <Route path="/onboarding/*" element={<Onboarding />} />   {/* Route for onboarding steps */}
+        <Route path="/main" element={<MainPage />} />             {/* Route for the main page */}
+        <Route path="/connection-test" element={<ConnectionTest />} /> {/* Optional route for ConnectionTest */}
       </Routes>
     </Router>
   );
