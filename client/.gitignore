@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# web scraping files
+server/eventbrite_page.html
+server/events_data.json
