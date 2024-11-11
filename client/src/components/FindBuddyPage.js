@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Mock data for potential matches with contact details
+// Import local images
+import ashleyImage from "./images/ashley.jpeg";
+import emmaImage from "./images/emma.jpeg";
+import michaelImage from "./images/micheal.jpeg";
+import sarahImage from "./images/sarah.jpg";
+
 const mockMatches = [
   {
     id: 1,
@@ -12,6 +17,7 @@ const mockMatches = [
     interests: ["Sports", "Food", "Fitness"],
     preferences: ["Public Transit", "Meet at Venue"],
     contact: "sarah.butler@example.com",
+    image: sarahImage,
   },
   {
     id: 2,
@@ -21,6 +27,7 @@ const mockMatches = [
     interests: ["Sports", "Fitness", "Recreation"],
     preferences: ["Walk", "Virtual Meet First"],
     contact: "ashley.cole@example.com",
+    image: ashleyImage,
   },
   {
     id: 3,
@@ -30,6 +37,7 @@ const mockMatches = [
     interests: ["Technology", "Food", "Networking"],
     preferences: ["Cycling", "Meet at Venue"],
     contact: "michael.johnson@example.com",
+    image: michaelImage,
   },
   {
     id: 4,
@@ -39,6 +47,7 @@ const mockMatches = [
     interests: ["Music", "Concerts", "Food"],
     preferences: ["Driving", "Virtual Meet First"],
     contact: "emma.watson@example.com",
+    image: emmaImage,
   },
 ];
 
@@ -47,23 +56,31 @@ const FindBuddyPage = () => {
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
   const [hasSentRequest, setHasSentRequest] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
+  const [animationDirection, setAnimationDirection] = useState("left");
 
   const handleYes = () => {
-    if (!hasSentRequest) {
-      setHasSentRequest(true); // First click on "Yes" shows "Request Sent"
+    const currentMatch = mockMatches[currentMatchIndex];
+
+    if (!hasSentRequest && currentMatch.name !== "Emma Watson") {
+      setHasSentRequest(true);
+      setAnimationDirection("right");
+
       setTimeout(() => {
+        setHasSentRequest(false);
         setCurrentMatchIndex((prevIndex) =>
           prevIndex < mockMatches.length - 1 ? prevIndex + 1 : 0
         );
-      }, 1000); // Slide out current card after delay
-    } else {
-      setIsMatched(true); // Directly match on any subsequent "Yes" clicks
+      }, 5);
+    } else if (currentMatch.name === "Emma Watson") {
+      setIsMatched(true);
     }
   };
 
   const handleNo = () => {
-    setHasSentRequest(false); // Reset request state on "No"
-    setIsMatched(false); // Reset matched state on "No"
+    setHasSentRequest(false);
+    setIsMatched(false);
+    setAnimationDirection("left");
+
     setCurrentMatchIndex((prevIndex) =>
       prevIndex < mockMatches.length - 1 ? prevIndex + 1 : 0
     );
@@ -78,11 +95,11 @@ const FindBuddyPage = () => {
         <p style={{ backgroundColor: "#E9D5FF", padding: "10px", borderRadius: "8px", color: "#6B21A8" }}>
           {event.name} - {event.date}<br />
           {event.location}, {event.description} <br />
-          Price: ${event.price}
+          Price: {event.price}
         </p>
       </header>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isMatched ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -98,13 +115,44 @@ const FindBuddyPage = () => {
           >
             🎉 Matched! 🎉 <br />
             Contact: {currentMatch.contact}
+            <div style={{ marginTop: "20px" }}>
+              <button>
+                 <a href={event.buyLink} rel="noopener noreferrer" className="event-button-link">
+                 Buy Tickets
+               </a>
+                style={{
+                  backgroundColor: "#7C3AED",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                }}
+              Buy Tickets
+              </button>
+              {/* <a
+                href={event.link} // Make sure this buyLink is correctly passed from the EventCard
+                target={event.link}
+                // rel={{event.link}}
+                style={{
+                  backgroundColor: "#7C3AED",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                }}
+              >
+                Buy Tickets
+              </a> */}
+            </div>
           </motion.div>
         ) : (
           <motion.div
             key={currentMatch.id}
-            initial={{ x: 300, opacity: 0 }}
+            initial={{ x: animationDirection === "right" ? 300 : -300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
+            exit={{ x: animationDirection === "right" ? -300 : 300, opacity: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
             style={{
               backgroundColor: "#F3E8FF",
@@ -114,49 +162,22 @@ const FindBuddyPage = () => {
               marginBottom: "20px",
             }}
           >
+            <img
+              src={currentMatch.image}
+              alt={currentMatch.name}
+              style={{
+                width: "150px",
+                height: "150px",
+                borderRadius: "50%",
+                marginBottom: "15px",
+                objectFit: "cover",
+              }}
+            />
             <h3 style={{ fontSize: "20px", color: "#333" }}>{currentMatch.name}</h3>
             <p style={{ color: "#666", marginTop: "8px" }}>{currentMatch.bio}</p>
             <p style={{ color: "#6B21A8", fontWeight: "bold", marginTop: "8px" }}>
               ⭐ {currentMatch.matchPercentage}% match
             </p>
-            
-            <div style={{ marginTop: "12px" }}>
-              {currentMatch.interests.map((interest) => (
-                <span
-                  key={interest}
-                  style={{
-                    display: "inline-block",
-                    margin: "4px",
-                    padding: "6px 12px",
-                    backgroundColor: "#7C3AED",
-                    color: "white",
-                    borderRadius: "12px",
-                    fontSize: "14px",
-                  }}
-                >
-                  {interest}
-                </span>
-              ))}
-            </div>
-
-            <div style={{ marginTop: "12px" }}>
-              {currentMatch.preferences.map((preference) => (
-                <span
-                  key={preference}
-                  style={{
-                    display: "inline-block",
-                    margin: "4px",
-                    padding: "6px 12px",
-                    backgroundColor: "#EDE9FE",
-                    color: "#6B21A8",
-                    borderRadius: "12px",
-                    fontSize: "14px",
-                  }}
-                >
-                  {preference}
-                </span>
-              ))}
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
