@@ -7,7 +7,7 @@ const EventCard = ({ name, location, date, description, price, category, buyLink
 
   const handleFindBuddy = () => {
     navigate("/find-buddy", {
-      state: { name, location, date, description, price, category,buyLink },
+      state: { name, location, date, description, price, category, buyLink },
     });
   };
 

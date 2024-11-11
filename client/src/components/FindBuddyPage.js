@@ -116,20 +116,9 @@ const FindBuddyPage = () => {
             🎉 Matched! 🎉 <br />
             Contact: {currentMatch.contact}
             <div style={{ marginTop: "20px" }}>
-              <button>
-                 <a href={event.buyLink} rel="noopener noreferrer" className="event-button-link">
-                 Buy Tickets
-               </a>
-                style={{
-                  backgroundColor: "#7C3AED",
-                  color: "white",
-                  padding: "10px 20px",
-                  borderRadius: "8px",
-                  textDecoration: "none",
-                  display: "inline-block",
-                }}
+            <a href={event.buyLink}  target="_blank" rel="noopener noreferrer" className="event-button-link">
               Buy Tickets
-              </button>
+            </a>
               {/* <a
                 href={event.link} // Make sure this buyLink is correctly passed from the EventCard
                 target={event.link}
