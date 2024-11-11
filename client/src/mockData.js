@@ -2,7 +2,7 @@
 
 export const recommendedMockData = [
     {
-      name: "Campus Art Exhibition",
+      name: "Campus",
       location: "Main Campus Hall",
       date: "November 12 at 2:00 PM",
       description: "A unique art exhibition showcasing campus talent.",
@@ -23,7 +23,7 @@ export const recommendedMockData = [
   
   export const trendingMockData = [
     {
-      name: "Music Festival",
+      name: "Mus",
       location: "City Park",
       date: "November 18 at 6:00 PM",
       description: "An outdoor music festival with performances from various artists.",

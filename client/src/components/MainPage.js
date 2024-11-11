@@ -5,43 +5,41 @@ import { recommendedMockData, trendingMockData } from '../mockData.js';
 const MainPage = () => {
   const [recommendedEvents, setRecommendedEvents] = useState([]);
   const [trendingEvents, setTrendingEvents] = useState([]);
-  const [useMockData, setUseMockData] = useState(true); // Flag to toggle mock data
+  const [useMockData, setUseMockData] = useState(false); // Flag to toggle mock data
 
   const generateRandomPrice = () => Math.floor(Math.random() * (50 - 10 + 1)) + 10;
 
   useEffect(() => {
     const fetchEvents = async () => {
       if (useMockData) {
+        // Using mock data
         setRecommendedEvents(recommendedMockData);
         setTrendingEvents(trendingMockData);
       } else {
         try {
-          const recommendedResponse = await fetch("https://api.example.com/recommended");
-          const recommendedData = await recommendedResponse.json();
-          const trendingResponse = await fetch("https://api.example.com/trending");
-          const trendingData = await trendingResponse.json();
-
-          const processedRecommendedData = recommendedData.map(event => ({
+          // Fetch data once for both recommended and trending events
+          const response = await fetch("http://localhost:3001/api");
+          const data = await response.json();
+  
+          // Process data to handle missing price values
+          const processedData = data.map(event => ({
             ...event,
             price: event.price || generateRandomPrice(),
           }));
-
-          const processedTrendingData = trendingData.map(event => ({
-            ...event,
-            price: event.price || generateRandomPrice(),
-          }));
-
-          setRecommendedEvents(processedRecommendedData);
-          setTrendingEvents(processedTrendingData);
-
+  
+          // Set both recommended and trending events with the same processed data
+          setRecommendedEvents(processedData);
+          setTrendingEvents(processedData);
+  
         } catch (error) {
           console.error("Error fetching events:", error);
         }
       }
     };
-
+  
     fetchEvents();
   }, [useMockData]);
+  
 
   return (
     <div style={{ padding: "16px", fontFamily: "Arial, sans-serif" }}>
