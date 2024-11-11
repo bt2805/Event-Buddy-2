@@ -34,7 +34,7 @@ const EventCard = ({ name, location, date, description, price, category, buyLink
 
       {/* Buttons */}
       <div className="event-buttons">
-        <a href={buyLink} rel="noopener noreferrer" className="event-button-link">
+        <a href={buyLink}  target="_blank" rel="noopener noreferrer" className="event-button-link">
           Buy Tickets
         </a>
         <button onClick={handleFindBuddy} className="event-button">
