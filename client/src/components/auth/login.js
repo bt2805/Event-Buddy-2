@@ -9,11 +9,9 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login attempted with:", { email, password });
+    console.log("Sign up attempted with:", { email, password });
     
-    // Here, you could add login validation or API authentication logic if needed
-
-    // If login is successful, navigate to the onboarding process
+    // If sign up is successful, navigate to the onboarding process
     navigate("/onboarding");
   };
 
@@ -41,7 +39,7 @@ const LoginPage = () => {
       >
         <div style={{ textAlign: "center", marginBottom: "24px" }}>
           <h1 style={{ fontSize: "24px", fontWeight: "bold", color: "#333" }}>Event Buddy</h1>
-          <p style={{ marginTop: "8px", color: "#666" }}>Welcome back! Please log in to continue</p>
+          <p style={{ marginTop: "8px", color: "#666" }}>Sign up to get started!</p>
         </div>
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           <div style={{ position: "relative" }}>
@@ -101,7 +99,7 @@ const LoginPage = () => {
               border: "none",
             }}
           >
-            Login
+            Sign Up
             <ArrowRight style={{ marginLeft: "8px", height: "20px", width: "20px" }} />
           </button>
           <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px" }}>
@@ -129,7 +127,7 @@ const LoginPage = () => {
                 padding: "0",
               }}
             >
-              Create account
+              Login
             </button>
           </div>
         </form>
