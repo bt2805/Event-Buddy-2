@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./components/auth/login"; // Import the LoginPage component
 import MainPage from "./components/MainPage";     // Import the MainPage component
-import Onboarding from "./components/Onboarding"; // Import the Onboarding component
+import Onboarding from "./components/Onboarding";
+import FindBuddyPage from "./components/FindBuddyPage";  // Import the Onboarding component
 
 function ConnectionTest() {
   const [apiMessage, setApiMessage] = useState(null);
@@ -39,11 +40,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} />                {/* Set LoginPage as the default route */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/onboarding/*" element={<Onboarding />} />   {/* Route for onboarding steps */}
-        <Route path="/main" element={<MainPage />} />             {/* Route for the main page */}
-        <Route path="/connection-test" element={<ConnectionTest />} /> {/* Optional route for ConnectionTest */}
+        <Route path="/" element={<LoginPage />} />                 {/* Default route */}
+        <Route path="/login" element={<LoginPage />} />            {/* Login route */}
+        <Route path="/onboarding/*" element={<Onboarding />} />    {/* Onboarding route */}
+        <Route path="/main" element={<MainPage />} />              {/* Main page route */}
+        <Route path="/find-buddy" element={<FindBuddyPage />} />   {/* Find Buddy page route */}
+        <Route path="/connection-test" element={<ConnectionTest />} /> {/* Connection test route */}
       </Routes>
     </Router>
   );

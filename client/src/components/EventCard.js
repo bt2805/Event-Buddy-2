@@ -1,6 +1,16 @@
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({ name, location, date, description, price, category, buyLink }) => {
+  const navigate = useNavigate();
+
+  const handleFindBuddy = () => {
+    // Pass event details as route state
+    navigate("/find-buddy", {
+      state: { name, location, date, description, price, category }
+    });
+  };
+
   return (
     <div style={{
       backgroundColor: "#e9d5ff",
@@ -10,7 +20,7 @@ const EventCard = ({ name, location, date, description, price, category, buyLink
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     }}>
       <h4 style={{ fontSize: "16px", fontWeight: "bold", color: "#333" }}>{name}</h4>
-      <p style={{ fontSize: "14px", color: "#666" }}>Category: {category}</p>  {/* Display category here */}
+      <p style={{ fontSize: "14px", color: "#666" }}>Category: {category}</p> {/* Display category here */}
       <p style={{ fontSize: "14px", color: "#666" }}>{location}</p>
       <p style={{ fontSize: "14px", color: "#666" }}>{description}</p>
       <p style={{ fontSize: "14px", color: "#666" }}>Date: {date}</p>
@@ -35,16 +45,19 @@ const EventCard = ({ name, location, date, description, price, category, buyLink
         >
           Buy Tickets
         </a>
-        <button style={{
-          backgroundColor: "#7c3aed",
-          color: "white",
-          borderRadius: "8px",
-          padding: "8px 16px",
-          fontWeight: "bold",
-          border: "none",
-          cursor: "pointer",
-          flex: 1,
-        }}>
+        <button
+          onClick={handleFindBuddy}
+          style={{
+            backgroundColor: "#7c3aed",
+            color: "white",
+            borderRadius: "8px",
+            padding: "8px 16px",
+            fontWeight: "bold",
+            border: "none",
+            cursor: "pointer",
+            flex: 1,
+          }}
+        >
           Find Your Buddy
         </button>
       </div>
