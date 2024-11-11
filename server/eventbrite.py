@@ -11,14 +11,14 @@ response = requests.get(url)
 
 # Check if the request was successful
 if response.status_code == 200:
-    with open("eventbrite_page.html", "w", encoding="utf-8") as file:
+    with open("server/eventbrite_page.html", "w", encoding="utf-8") as file:
         file.write(response.text)
     print("HTML page saved as 'eventbrite_page.html'")
 else:
     print(f"Error {response.status_code}: Unable to retrieve page.")
 
 # Path to your HTML file
-file_path = 'eventbrite_page.html'
+file_path = 'server/eventbrite_page.html'
 
 # Load the HTML content from the file
 with open(file_path, 'r', encoding='utf-8') as file:
@@ -128,7 +128,7 @@ for i, (event_name, event) in enumerate(events_dict.items(), 1):
 
 
 # Write the final data to a JSON file
-output_file = 'events_data.json'
+output_file = 'server/events_data.json'
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(list(events_dict.values()), f, indent=4, ensure_ascii=False)
 
