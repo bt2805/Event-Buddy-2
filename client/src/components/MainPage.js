@@ -44,10 +44,10 @@ const MainPage = () => {
   return (
     <div style={{ padding: "16px", fontFamily: "Arial, sans-serif" }}>
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "16px" }}>
-        <h1 style={{ fontSize: "24px", fontWeight: "bold", color: "#333" }}>Event Buddy</h1>
+        <h1 style={{ display: "flex", justifyContent: "space-between", fontSize: "45px", fontWeight: "bold", color: "#333", alignItems: "center", margin: "auto"}}>Event Buddy</h1>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <span style={{ fontSize: "14px", color: "#7c3aed", marginRight: "8px" }}>Live Updates</span>
-          <span style={{ fontSize: "20px", color: "#7c3aed" }}>🔔</span>
+          {/* <span style={{ fontSize: "14px", color: "#7c3aed", marginRight: "8px" }}>Live Updates</span>
+          <span style={{ fontSize: "20px", color: "#7c3aed" }}>🔔</span> */}
         </div>
       </header>
 
@@ -81,7 +81,9 @@ const EventSection = ({ title, events }) => (
           date={event.date}
           description={event.description}
           price={event.price}
+          venue={event.venue}
           category={event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+          image = {event.image_url}
  // Pass category to EventCard
           buyLink={event.link}
         />

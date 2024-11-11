@@ -1,63 +1,43 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./EventCard.css";
 
-const EventCard = ({ name, location, date, description, price, category, buyLink }) => {
+const EventCard = ({ name, location, date, description, price, category, buyLink, venue, image }) => {
   const navigate = useNavigate();
 
   const handleFindBuddy = () => {
-    // Pass event details as route state
     navigate("/find-buddy", {
-      state: { name, location, date, description, price, category }
+      state: { name, location, date, description, price, category },
     });
   };
 
   return (
-    <div style={{
-      backgroundColor: "#e9d5ff",
-      borderRadius: "8px",
-      padding: "16px",
-      marginBottom: "16px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    }}>
-      <h4 style={{ fontSize: "16px", fontWeight: "bold", color: "#333" }}>{name}</h4>
-      <p style={{ fontSize: "14px", color: "#666" }}>Category: {category}</p> {/* Display category here */}
-      <p style={{ fontSize: "14px", color: "#666" }}>Location: {location}</p>
-      <p style={{ fontSize: "14px", color: "#666" }}>{description}</p>
-      <p style={{ fontSize: "14px", color: "#666" }}>Date: {date}</p>
-      <p style={{ fontSize: "14px", fontWeight: "bold", color: "#333" }}>Price: {price}</p>
-      <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
-        <a
-          href={buyLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            backgroundColor: "#7c3aed",
-            color: "white",
-            borderRadius: "8px",
-            padding: "8px 16px",
-            fontWeight: "bold",
-            border: "none",
-            cursor: "pointer",
-            flex: 1,
-            textAlign: "center",
-            textDecoration: "none",
-          }}
-        >
+    <div className="event-card-container">
+      <div className="event-content">
+        {/* Event Details */}
+        <div className="event-details">
+          <h4 className="event-name">{name}</h4>
+          <p className="event-info">Date: {date}</p>
+          <p className="event-info">Location: {location}</p>
+          <p className="event-info">Venue: {venue}</p>
+          <p className="event-info">Category: {category}</p>
+          <p className="event-price">Price: {price}</p>
+        </div>
+
+        {/* Event Image */}
+        {image && (
+          <div className="event-image-container">
+            <img src={image} alt={name} className="event-image" />
+          </div>
+        )}
+      </div>
+
+      {/* Buttons */}
+      <div className="event-buttons">
+        <a href={buyLink} target="_blank" rel="noopener noreferrer" className="event-button-link">
           Buy Tickets
         </a>
-        <button
-          onClick={handleFindBuddy}
-          style={{
-            backgroundColor: "#7c3aed",
-            color: "white",
-            borderRadius: "8px",
-            padding: "8px 16px",
-            fontWeight: "bold",
-            border: "none",
-            cursor: "pointer",
-            flex: 1,
-          }}
-        >
+        <button onClick={handleFindBuddy} className="event-button">
           Find Your Buddy
         </button>
       </div>
