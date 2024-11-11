@@ -11,41 +11,33 @@ import sarahImage from "./images/sarah.jpg";
 const mockMatches = [
   {
     id: 1,
-    name: "Sarah Butler",
+    name: "Sarah Butler (she/her)",
     bio: "Science Major, loves Basketball! Always up for coffee and conversations about NBA.",
     matchPercentage: 75,
-    interests: ["Sports", "Food", "Fitness"],
-    preferences: ["Public Transit", "Meet at Venue"],
     contact: "sarah.butler@example.com",
     image: sarahImage,
   },
   {
     id: 2,
-    name: "Ashley Cole",
+    name: "Ashley Cole (she/they)",
     bio: "Arts Major, Favorite team LA Lakers",
     matchPercentage: 95,
-    interests: ["Sports", "Fitness", "Recreation"],
-    preferences: ["Walk", "Virtual Meet First"],
     contact: "ashley.cole@example.com",
     image: ashleyImage,
   },
   {
     id: 3,
-    name: "Michael Johnson",
+    name: "Michael Johnson (he/him)",
     bio: "Tech Enthusiast, loves Hackathons and Innovation!",
     matchPercentage: 80,
-    interests: ["Technology", "Food", "Networking"],
-    preferences: ["Cycling", "Meet at Venue"],
     contact: "michael.johnson@example.com",
     image: michaelImage,
   },
   {
     id: 4,
-    name: "Emma Watson",
+    name: "Emma Watson (they/them)",
     bio: "Music lover, especially rock concerts and jazz sessions.",
     matchPercentage: 85,
-    interests: ["Music", "Concerts", "Food"],
-    preferences: ["Driving", "Virtual Meet First"],
     contact: "emma.watson@example.com",
     image: emmaImage,
   },
@@ -58,10 +50,14 @@ const FindBuddyPage = () => {
   const [isMatched, setIsMatched] = useState(false);
   const [animationDirection, setAnimationDirection] = useState("left");
 
-  const handleYes = () => {
-    const currentMatch = mockMatches[currentMatchIndex];
+  const currentMatch = mockMatches[currentMatchIndex];
 
-    if (!hasSentRequest && currentMatch.name !== "Emma Watson") {
+  const handleYes = () => {
+    if (currentMatch.name === "Emma Watson (they/them)") {
+      // Match with Emma Watson
+      setIsMatched(true);
+    } else if (!hasSentRequest) {
+      // Show "Request Sent" for others the first time
       setHasSentRequest(true);
       setAnimationDirection("right");
 
@@ -70,9 +66,7 @@ const FindBuddyPage = () => {
         setCurrentMatchIndex((prevIndex) =>
           prevIndex < mockMatches.length - 1 ? prevIndex + 1 : 0
         );
-      }, 5);
-    } else if (currentMatch.name === "Emma Watson") {
-      setIsMatched(true);
+      }, 750);
     }
   };
 
@@ -80,13 +74,10 @@ const FindBuddyPage = () => {
     setHasSentRequest(false);
     setIsMatched(false);
     setAnimationDirection("left");
-
     setCurrentMatchIndex((prevIndex) =>
       prevIndex < mockMatches.length - 1 ? prevIndex + 1 : 0
     );
   };
-
-  const currentMatch = mockMatches[currentMatchIndex];
 
   return (
     <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
@@ -116,13 +107,10 @@ const FindBuddyPage = () => {
             🎉 Matched! 🎉 <br />
             Contact: {currentMatch.contact}
             <div style={{ marginTop: "20px" }}>
-            <a href={event.buyLink}  target="_blank" rel="noopener noreferrer" className="event-button-link">
-              Buy Tickets
-            </a>
-              {/* <a
-                href={event.link} // Make sure this buyLink is correctly passed from the EventCard
-                target={event.link}
-                // rel={{event.link}}
+              <a
+                href={event.buyLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   backgroundColor: "#7C3AED",
                   color: "white",
@@ -133,7 +121,7 @@ const FindBuddyPage = () => {
                 }}
               >
                 Buy Tickets
-              </a> */}
+              </a>
             </div>
           </motion.div>
         ) : (
@@ -167,6 +155,8 @@ const FindBuddyPage = () => {
             <p style={{ color: "#6B21A8", fontWeight: "bold", marginTop: "8px" }}>
               ⭐ {currentMatch.matchPercentage}% match
             </p>
+            
+
           </motion.div>
         )}
       </AnimatePresence>

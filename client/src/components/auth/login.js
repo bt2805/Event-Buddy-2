@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Mail, Lock } from "lucide-react"; // Ensure lucide-react is installed
+import { ArrowRight, Mail, Lock, BookHeart}  from "lucide-react"; // Ensure lucide-react is installed
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [pronouns, setPronouns] = useState("");
   const navigate = useNavigate(); // Initialize the navigate function
 
   const handleSubmit = (e) => {
@@ -69,6 +70,26 @@ const LoginPage = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "12px 12px 12px 36px",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                outline: "none",
+                fontSize: "16px",
+                color: "#333",
+                boxSizing: "border-box",
+              }}
+              required
+            />
+          </div>
+          <div style={{ position: "relative" }}>
+          <BookHeart style={{ position: "absolute", left: "12px", top: "12px", color: "#999" }} />
+            <input
+              type="Pronouns"
+              placeholder="Pronouns"
+              value={pronouns}
+              onChange={(e) => setPronouns(e.target.value)}
               style={{
                 width: "100%",
                 padding: "12px 12px 12px 36px",
