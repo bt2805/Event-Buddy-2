@@ -81,8 +81,9 @@ const EventSection = ({ title, events }) => (
           date={event.date}
           description={event.description}
           price={event.price}
-          category={event.category}  // Pass category to EventCard
-          buyLink={event.buyLink}
+          category={event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+ // Pass category to EventCard
+          buyLink={event.link}
         />
       ))
     ) : (
